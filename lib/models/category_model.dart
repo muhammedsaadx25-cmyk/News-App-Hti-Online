@@ -6,12 +6,12 @@ class CategoryModel{
   String imagePath;
   CategoryModel({required this.id, required this.name, required this.imagePath});
   static List<CategoryModel> categories = [
-    CategoryModel(id: "id", name: "General", imagePath: ImageAssets.general),
-    CategoryModel(id: "id", name: "Sports", imagePath: ImageAssets.sports),
-    CategoryModel(id: "id", name: "Health", imagePath: ImageAssets.health),
-    CategoryModel(id: "id", name: "Science", imagePath: ImageAssets.science),
-    CategoryModel(id: "id", name: "Technology", imagePath: ImageAssets.technology),
-    CategoryModel(id: "id", name: "Entertainment", imagePath: ImageAssets.entertainment),
-    CategoryModel(id: "id", name: "business", imagePath: ImageAssets.business),
+    CategoryModel(id: "general", name: "General", imagePath: ImageAssets.general),
+    CategoryModel(id: "sports", name: "Sports", imagePath: ImageAssets.sports),
+    CategoryModel(id: "health", name: "Health", imagePath: ImageAssets.health),
+    CategoryModel(id: "science", name: "Science", imagePath: ImageAssets.science),
+    CategoryModel(id: "technology", name: "Technology", imagePath: ImageAssets.technology),
+    CategoryModel(id: "entertainment", name: "Entertainment", imagePath: ImageAssets.entertainment),
+    CategoryModel(id: "business", name: "business", imagePath: ImageAssets.business),
   ];
 }
