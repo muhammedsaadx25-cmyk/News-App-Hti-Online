@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app_hti_online/api/api_service.dart';
-import 'package:news_app_hti_online/api/articles_response/Article.dart'
-    show Article;
-import 'package:news_app_hti_online/api/sources_response/Source.dart';
+
 import 'package:news_app_hti_online/core/colors_manager.dart';
+import 'package:news_app_hti_online/data/api/api_service.dart';
+import 'package:news_app_hti_online/data/api/articles_response/Article.dart';
+import 'package:news_app_hti_online/data/api/sources_response/Source.dart';
+import 'package:news_app_hti_online/data/data_sources_impl/articles_api_data_source.dart';
+import 'package:news_app_hti_online/data/data_sources_impl/sources_api_data_Source.dart';
+import 'package:news_app_hti_online/data/repositories_impl/articles_repo_impl.dart';
+import 'package:news_app_hti_online/data/repositories_impl/sources_repository_impl.dart';
 import 'package:news_app_hti_online/features/home/sources_view/article_item.dart';
 import 'package:news_app_hti_online/features/home/sources_view/articles_viewModel.dart';
 import 'package:news_app_hti_online/features/home/sources_view/sources_view_model.dart';
-import 'package:news_app_hti_online/models/category_model.dart'
-    show CategoryModel;
+import 'package:news_app_hti_online/models/category_model.dart';
 import 'package:provider/provider.dart';
 
 class SourcesView extends StatefulWidget {
@@ -31,11 +34,19 @@ class _SourcesViewState extends State<SourcesView> {
     // TODO: implement initState
     super.initState();
     fetchData();
-
   }
-  void fetchData()async{
-    sourcesViewModel = SourcesViewModel();
-    articlesViewModel = ArticlesViewModel();
+
+  void fetchData() async {
+    sourcesViewModel = SourcesViewModel(
+      sourcesRepository: SourcesRepositoryImpl(
+        sourcesDataSource: SourcesApiDataSource(apiService: ApiService()),
+      ),
+    );
+    articlesViewModel = ArticlesViewModel(
+      articlesRepository: ArticlesRepositoryImpl(
+        articlesDataSource: ArticlesApiDataSource(apiService: ApiService()),
+      ),
+    );
     await sourcesViewModel.fetchSources(widget.category);
     articlesViewModel.fetchArticles(sourcesViewModel.sources[0]);
   }
@@ -67,8 +78,10 @@ class _SourcesViewState extends State<SourcesView> {
               return DefaultTabController(
                 length: sources.length,
                 child: TabBar(
-                  onTap: (index){
-                    articlesViewModel.fetchArticles(sourcesViewModel.sources[index]);
+                  onTap: (index) {
+                    articlesViewModel.fetchArticles(
+                      sourcesViewModel.sources[index],
+                    );
                   },
                   isScrollable: true,
                   tabAlignment: TabAlignment.start,

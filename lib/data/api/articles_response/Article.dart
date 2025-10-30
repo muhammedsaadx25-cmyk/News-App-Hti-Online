@@ -1,6 +1,7 @@
 
 
-import 'package:news_app_hti_online/api/sources_response/Source.dart' ;
+
+import 'package:news_app_hti_online/data/api/sources_response/Source.dart' ;
 
 class Article {
   Article({

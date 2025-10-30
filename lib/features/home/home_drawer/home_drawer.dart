@@ -65,7 +65,9 @@ class HomeDrawer extends StatelessWidget {
                      ),
                    ),
                    Spacer(),
-                   Switch(value: true, onChanged: (isDark){})
+                   Switch(value: true, onChanged: (isDark){
+
+                   })
                  ],
                ),
 
